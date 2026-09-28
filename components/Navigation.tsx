@@ -59,8 +59,17 @@ export const Navigation: React.FC = () => {
           {navLinks.map((link) => (
             <a 
               key={link.name} 
-              href={link.href} 
-              onClick={(e) => handleNavClick(e, link.href)}
+              href={link.name === '상담신청' ? "https://naver.me/G1w8Gyro" : link.href} 
+              target={link.name === '상담신청' ? "_blank" : undefined}
+              rel={link.name === '상담신청' ? "noopener noreferrer" : undefined}
+              onClick={(e) => {
+                if (link.name === '상담신청') {
+                  e.preventDefault();
+                  window.open("https://naver.me/G1w8Gyro", "_blank", "noopener,noreferrer");
+                } else {
+                  handleNavClick(e, link.href);
+                }
+              }}
               className={`text-lg font-medium transition-colors ${
                 link.name === '상담신청' 
                   ? 'text-yellow-400 font-bold' 
@@ -73,10 +82,14 @@ export const Navigation: React.FC = () => {
           <a 
             href="tel:15996529" 
             onClick={(e) => {
-              const isPc = window.innerWidth >= 1024;
-              if (isPc) handleNavClick(e, '#consultation');
+              const isPc = typeof window !== 'undefined' && window.innerWidth >= 1024;
+              if (isPc) {
+                e.preventDefault();
+                window.open("https://naver.me/G1w8Gyro", "_blank", "noopener,noreferrer");
+              }
             }}
             className="flex items-center gap-2 bg-yellow-400 text-black px-5 py-2 rounded-full font-bold text-lg hover:bg-yellow-300 transition-transform hover:scale-105"
+            title="모바일: 전화연결 / PC: 상담신청 새창"
           >
             <PhoneCall size={20} />
             1599-6529
@@ -95,21 +108,37 @@ export const Navigation: React.FC = () => {
           {navLinks.map((link) => (
             <a 
               key={link.name} 
-              href={link.href} 
+              href={link.name === '상담신청' ? "https://naver.me/G1w8Gyro" : link.href} 
+              target={link.name === '상담신청' ? "_blank" : undefined}
+              rel={link.name === '상담신청' ? "noopener noreferrer" : undefined}
               className={`text-base font-medium py-2 border-b border-zinc-800 ${
                 link.name === '상담신청' 
                   ? 'text-yellow-400 font-bold' 
                   : 'text-gray-300 hover:text-yellow-400'
               }`}
-              onClick={(e) => handleNavClick(e, link.href)}
+              onClick={(e) => {
+                if (link.name === '상담신청') {
+                  e.preventDefault();
+                  window.open("https://naver.me/G1w8Gyro", "_blank", "noopener,noreferrer");
+                  setIsMobileMenuOpen(false);
+                } else {
+                  handleNavClick(e, link.href);
+                }
+              }}
             >
               {link.name}
             </a>
           ))}
           <a 
-            href="#consultation" 
-            className="bg-yellow-400 text-black text-center py-3 rounded-md font-bold text-sm"
-            onClick={(e) => handleNavClick(e, '#consultation')}
+            href="https://naver.me/G1w8Gyro" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-yellow-400 text-black text-center py-3 rounded-md font-bold text-sm block"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("https://naver.me/G1w8Gyro", "_blank", "noopener,noreferrer");
+              setIsMobileMenuOpen(false);
+            }}
           >
             무료상담 신청하기
           </a>

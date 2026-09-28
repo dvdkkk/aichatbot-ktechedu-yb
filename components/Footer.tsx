@@ -32,7 +32,15 @@ export const Footer: React.FC = () => {
                 <p className="font-bold text-zinc-400 mb-2">고객센터</p>
                 <a 
                   href="tel:15996529" 
-                  className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors md:pointer-events-none md:cursor-default md:hover:text-white inline-block"
+                  onClick={(e) => {
+                    const isPc = typeof window !== 'undefined' && window.innerWidth >= 1024;
+                    if (isPc) {
+                      e.preventDefault();
+                      window.open("https://naver.me/G1w8Gyro", "_blank", "noopener,noreferrer");
+                    }
+                  }}
+                  className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors inline-block cursor-pointer"
+                  title="모바일: 전화연결 / PC: 상담신청 새창"
                 >
                   1599-6529
                 </a>
